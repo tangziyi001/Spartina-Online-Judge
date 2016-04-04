@@ -2,19 +2,20 @@
 # NYU Competitive Programming Team Website
 
 ## Overview
-This website serves to display team info, meeting schedule, submission tutorial and weekly/monthly/annually contest ranking. The first three parts above will be static pages built with front-end frameworks. The fourth part integrates API from popular online-judges. The fifth part integrates database. There are two types of users: one is team member and the other is coach. Team member is allowed to access contest ranking. Coach is allowed to add meeting notification, sample problems, and contest ID of [vjudge contest platform](http://acm.hust.edu.cn/vjudge/contest/toListContest.action) so that the results of programming team's weekly practice contests can be automatically integrated to the ranking database of this website.
+This website serves to display team info, meeting schedule, submission tutorial and weekly/monthly/annually contest ranking. The first three parts above will be static pages built with front-end frameworks. The fourth part integrates API from popular online-judges. The fifth part integrates database. There are two types of users: one is team member and the other is coach. Team member is allowed to access contest ranking. Coach is allowed to add meeting notification and contest ID of [vjudge contest platform](http://acm.hust.edu.cn/vjudge/contest/toListContest.action) so that the results of programming team's weekly practice contests can be automatically integrated to the ranking database of this website.
 
 
 
 ## Data Model
 
 
-Minimally, we'll have to store Users, Contest, Notification and Sample Problem.
+Minimally, we'll have to store Users, Contest, Member and Notification.
 
-* User has username and password
-* Contest have id and a ranking list, which contains the name and scores of all participants of a certain contest. The contest data is retrieved from [vjudge contest platform](http://acm.hust.edu.cn/vjudge/contest/toListContest.action).
-* Notification has title and content.
-* Sample Problem will be specified by API from online-judges. 
+* User has username, password and identity (member or coach).
+* Contest has id and a ranking list, which contains the name and scores of all participants of a certain contest. The contest data is retrieved from [vjudge contest platform](http://acm.hust.edu.cn/vjudge/contest/toListContest.action).
+* Member has name and score gathered from all contests.
+* Notification has title, content and author.
+
 First draft schema:
 
 ```javascript

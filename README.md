@@ -1,22 +1,20 @@
 
-# (Name of your project) Shoppy Shoperson
+# NYU Competitive Programming Team Website
 
 ## Overview
+This website serves to display team info, meeting schedule, submission tutorial and weekly/monthly/annually contest ranking. The first three parts above will be static pages built with front-end frameworks. The fourth part integrates API from popular online-judges. The fifth part integrates database. There are two types of users: one is team member and the other is coach. Team member is allowed to access contest ranking. Coach is allowed to add meeting notification, sample problems, and contest ID of [vjudge contest platform](http://acm.hust.edu.cn/vjudge/contest/toListContest.action) so that the results of programming team's weekly practice contests can be automatically integrated to the ranking database of this website.
 
-(Write a brief one or two paragraph, high-level description of your project here) Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
-
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross of items.
 
 
 ## Data Model
 
-(Describe the documents that you'll be storing - assuming that you're using a document based NoSQL database, like mongoose ... this can be in the form of commented plain JavaScript objects or an _actual_ Mongoose schema)
 
-Minimally, we'll have to store Users, Lists and Items
+Minimally, we'll have to store Users, Contest, Notification and Sample Problem.
 
-* users can have multiple lists
-* each list can have multiple items
-
+* User has username and password
+* Contest have id and a ranking list, which contains the name and scores of all participants of a certain contest. The contest data is retrieved from [vjudge contest platform](http://acm.hust.edu.cn/vjudge/contest/toListContest.action).
+* Notification has title and content.
+* Sample Problem will be specified by API from online-judges. 
 First draft schema:
 
 ```javascript
@@ -76,4 +74,3 @@ var List = new mongoose.Schema({
 * ... for total of 6 points 
     * additional points of research will make up for research topics that did not get full credit
     * but won't count for extra credit
-

@@ -46,6 +46,15 @@ var Contest = new mongoose.Schema({
 	id: {type:Number,required:true},
 	list: [{name:String, score:Number}]
 });
+
+// Notification
+// * each notification has a title
+// * each notification has context and author
+var Notification = new mongoose.Schema({
+	title: String
+	content: String,
+	author: String
+});
 ```
 ## Site Map
 ![list create](documentation/p3.png)

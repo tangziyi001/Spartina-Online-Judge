@@ -1,8 +1,8 @@
 
-# Spartina Coding Platform
+# Spartina Online Judge
 
 ## Overview
-This website is a coding practice platform for algorithm and programming enthusiasts. There are two types of users. One is coach, who can create programming problems and upload input/output test case. Another is member, who can login and submit their code. The code will be executed and give feedback to the member immediately. There will also be a ranking page that displays the rank of users based on how many problems each member has solved.
+This website is a coding practice platform for algorithm and programming enthusiasts. There are two types of users. One is coach, who can create programming problems and upload input/output test cases. Another is member, who can login and submit their code. The code will be executed and a feedback will be given to the member immediately. There will also be a ranking page that displays the rank of users based on how many problems each member has solved.
 
 
 ## Data Model
@@ -10,7 +10,7 @@ This website is a coding practice platform for algorithm and programming enthusi
 Minimally, we'll have to store Users, Problems and Submissions.
 
 * User has username, password and identity (member or coach).
-* Problem has id, title, description, input test case and output test case.
+* Problem has id, title, description, hardness, input test case and output test case.
 * Submission has problem, submission time and feedback.
 
 First draft schema:
@@ -46,7 +46,7 @@ var Problem = new mongoose.Schema({
 // * each submission has a feedback
 // * each submission has a submission time
 var Submission = new mongoose.Schema({
-	problem: {type:mongoose.Schema.Types.ObjectId, ref:'User'},
+	problem: {type:mongoose.Schema.Types.ObjectId, ref:'Problem'},
 	feedback: String,
 	submission_time: String
 });

@@ -9,29 +9,29 @@ var User = new mongoose.Schema({
 	identity: {type: String}
 });
 
-// Member
-// * each member has a handle, which is the username of vjudge
-// * each member has a total score
-// * each member has a list of contests he/she participated
-var Member = new mongoose.Schema({
-	handle:String,
-	score: Number,
-	contests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Contest' }]
+// Problem
+// * our site stores problems created by coach
+// * each problem contains an id, a title, a description
+// * each problem has test input and test output
+// * each problem has hardness
+var Problem = new mongoose.Schema({
+	problem_id: Number,
+	title: String,
+	description: String,
+	testinput: String,
+	testOutput: String,
+	hardness: String
 });
 
-// Contest
-// * each contest has an id and a list of name-score pairs.
-var Contest = new mongoose.Schema({
-	id: {type:Number,required:true},
-	list: [{name:String, score:Number}]
+// Submission
+// * each submission has a problem associated with it
+// * each submission has a feedback
+// * each submission has a submission time
+var Submission = new mongoose.Schema({
+	problem: {type:mongoose.Schema.Types.ObjectId, ref:'User'},
+	feedback: String,
+	submission_time: String
 });
 
-// Notification
-// * each notification has a title
-// * each notification has context and author
-var Notification = new mongoose.Schema({
-	title: String
-	content: String,
-	author: String
-});
+
 

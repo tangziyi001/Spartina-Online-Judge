@@ -60,7 +60,7 @@ function addData(contestID, callback){
 	}
 	req(contestID);
 }
-// addData('107970,111156',function(list){
-// 	console.log(list);
-// });
+ addData('107970,111156',function(list){
+ 	console.log(list);
+});
 module.exports.addData = addData;

@@ -2,7 +2,7 @@
 # NYU Competitive Programming Team Website
 
 ## Overview
-This website serves to display team info, meeting schedule, submission tutorial and weekly/monthly/annually contest ranking. The first three parts above will be static pages built with front-end frameworks. The fourth part integrates API from popular online-judges. The fifth part integrates database. There are two types of users: one is team member and the other is coach. Team member is allowed to access contest ranking. Coach is allowed to add meeting notification and contest ID of [vjudge contest platform](http://acm.hust.edu.cn/vjudge/contest/toListContest.action) so that the results of programming team's weekly practice contests can be automatically integrated to the ranking database of this website.
+This website serves to display team info, meeting schedule, submission tutorial and weekly/monthly/annually contest ranking. The first three parts above will be static pages built with front-end frameworks. The fourth part integrates API from popular online-judges. The fifth part integrates database. There are two types of users: one is team member and the other is coach. Team member is allowed to access contest ranking. Coach is allowed to add meeting notification and contest ID from [vjudge contest platform](http://acm.hust.edu.cn/vjudge/contest/toListContest.action) so that the results of programming team's weekly practice contests can be automatically integrated to the ranking database of this website.
 
 
 
@@ -19,59 +19,52 @@ Minimally, we'll have to store Users, Contest, Member and Notification.
 First draft schema:
 
 ```javascript
-// users
-// * our site requires authentication...
+var mongoose = require('mongoose');
+
+// User
+// * our site requires authentication.
 // * so users have a username and password
-// * they also can have 0 or more lists
+// * they also have an identity.
 var User = new mongoose.Schema({
-  // username, password provided by plugin
-  lists:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'List' }]
+	// username and password are provided by plugin
+	identity: {type: String}
 });
 
-// an item (or group of the same items) in a grocery list
-// * includes the quantity of this item (multiple of the same item does not 
-//   require additional Item documents; just increase the quantity!)
-// * items in a list can be crossed off
-var Item = new mongoose.Schema({
-	name: {type: String, required: true},
-	quantity: {type: Number, min: 1, required: true},
-	checked: {type: Boolean, default: false, required: true}
-}, {
-	_id: true
+// Member
+// * each member has a handle, which is the username of vjudge
+// * each member has a total score
+// * each member has a list of contests he/she participated
+var Member = new mongoose.Schema({
+	handle:String,
+	score: Number,
+	contests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Contest' }]
 });
 
-// a grocery list
-// * each list must have a related user
-// * a list can have 0 or more items
-var List = new mongoose.Schema({
-  user: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-  name: {type: String, required: true},
-	createdAt: {type: Date, required: true},
-	items: [Item]
+// Contest
+// * each contest has an id and a list of name-score pairs.
+var Contest = new mongoose.Schema({
+	id: {type:Number,required:true},
+	list: [{name:String, score:Number}]
 });
 ```
-
+## Site Map
+![list create](documentation/p3.png =500x)
 ## Wireframes
 
-![list create](documentation/list-create.png)
+![list create](documentation/p2.jpg =300x)
+![list create](documentation/p1.jpg =300x)
+
+## User Stories
+
+The coach can sign in to his/her administrative page and add contest ID and notifications, so that the ranking may be updated.
+A member can sign in to his/her user homepage to access his/her personal contest record. He/she can also access the contest ranking page. 
+All users can check out notifications, schedules and Tryit page. Any one can use Tryit page to submit his/her own code and get feedback immediatly.
 
 ## Reserach Topics
 
-
-
-* (3 points) Integrate user authentication
+* Integrate user authentication
     * I'm going to be using passport for user authentication
-    * And account has been made for testing; I'll email you the password
-    * see <code>cs.nyu.edu/~jversoza/ait-final/register</code> for register page
-    * see <code>cs.nyu.edu/~jversoza/ait-final/login</code> for login page
-* (2 points) Perform client side form validation using a JavaScript library
-    * see <code>cs.nyu.edu/~jversoza/ait-final/my-form</code>
-    * if you put in a number that's greater than 5, an error message will appear in the dom
-* (2 points) use awesome js library that i found
-    * the library does...
-    * you can see it working in these pages:
-        * link 1
-        * link 2
-* ... for total of 6 points 
-    * additional points of research will make up for research topics that did not get full credit
-    * but won't count for extra credit
+* Perform client side form validation using a JavaScript library
+* Use js libraries that i found
+    * htmlparser2 and request: parse contest data from [vjudge contest platform](http://acm.hust.edu.cn/vjudge/contest/toListContest.action).
+* Use code submission API from online-judges

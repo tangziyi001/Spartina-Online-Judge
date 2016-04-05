@@ -56,9 +56,9 @@ var Contest = new mongoose.Schema({
 
 ## User Stories
 
-The coach can sign in to his/her administrative page and add contest ID and notifications, so that the ranking may be updated.
+The coach can sign in to his/her administrative page and add contest ID and notifications, so that the ranking can be updated.
 A member can sign in to his/her user homepage to access his/her personal contest record. He/she can also access the contest ranking page. 
-All users can check out notifications, schedules and Tryit page. Any one can use Tryit page to submit his/her own code and get feedback immediatly.
+All users can check out notifications, schedules and Tryit page. Anyone can use Tryit page to submit his/her own code and get feedback immediatly.
 
 ## Reserach Topics
 
@@ -66,5 +66,5 @@ All users can check out notifications, schedules and Tryit page. Any one can use
     * I'm going to be using passport for user authentication
 * Perform client side form validation using a JavaScript library
 * Use js libraries that i found
-    * htmlparser2 and request: parse contest data from [vjudge contest platform](http://acm.hust.edu.cn/vjudge/contest/toListContest.action).
-* Use code submission API from online-judges
+    * htmlparser2 and request: parse contest data from [vjudge contest platform](http://acm.hust.edu.cn/vjudge/contest/toListContest.action). The functionality is achieved by vjudgeData.js
+* Use code submission API from online-judges. Users can access Tryit page to submit their code as text. The server sends the code to online-judges and retrieve feedbacks.

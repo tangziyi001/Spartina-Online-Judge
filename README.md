@@ -52,7 +52,7 @@ var Contest = new mongoose.Schema({
 ## Wireframes
 
 ![list create](documentation/p2.jpg)
-![list create](documentation/p1.jpg)
+![list create](documentation/p1.JPG)
 
 ## User Stories
 

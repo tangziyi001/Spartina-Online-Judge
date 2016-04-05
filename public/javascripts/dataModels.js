@@ -26,3 +26,12 @@ var Contest = new mongoose.Schema({
 	list: [{name:String, score:Number}]
 });
 
+// Notification
+// * each notification has a title
+// * each notification has context and author
+var Notification = new mongoose.Schema({
+	title: String
+	content: String,
+	author: String
+});
+

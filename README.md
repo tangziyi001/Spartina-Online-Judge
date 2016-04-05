@@ -48,11 +48,11 @@ var Contest = new mongoose.Schema({
 });
 ```
 ## Site Map
-![list create](documentation/p3.png =500x)
+![list create](./documentation/p3.png =500x)
 ## Wireframes
 
-![list create](documentation/p2.jpg =300x)
-![list create](documentation/p1.jpg =300x)
+![list create](./documentation/p2.jpg =300x)
+![list create](./documentation/p1.jpg =300x)
 
 ## User Stories
 

@@ -71,4 +71,4 @@ var Submission = new mongoose.Schema({
     * I'm going to be using passport for user authentication
 * Perform client side form validation using a JavaScript library
 * Use js libraries that i found
-* Use code submission API from [Sphere Judge](http://sphere-engine.com/). Users can access problem page to submit their code as text. The server sends the code to the Sphere Engine and retrieve feedbacks.
+* Use code submission API from [Sphere Engine](http://sphere-engine.com/). Users can access problem page to submit their code as text. The server sends the code to the Sphere Compiler and retrieve feedbacks.

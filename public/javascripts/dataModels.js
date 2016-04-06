@@ -30,7 +30,8 @@ var Problem = new mongoose.Schema({
 var Submission = new mongoose.Schema({
 	problem: {type:mongoose.Schema.Types.ObjectId, ref:'Problem'},
 	feedback: String,
-	submission_time: String
+	submission_time: String,
+	code: String
 });
 
 

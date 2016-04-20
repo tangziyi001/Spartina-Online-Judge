@@ -14,16 +14,22 @@ function testCom(){
 }
 function testPro(){
 		request({
-			url: 'https://problems.sphere-engine.com/api/v3',
+			rejectUnauthorized:false,
+			url: 'https://72e460c4.problems.sphere-engine.com/api/v3/test',
 			method: 'GET',
+			header:{
+				'Content-Type': 'application/json'
+			},
 			qs:{
-				access_token:'af547f9885290485d2e8a2dc579de3d0'
+				access_token:'14e498d49275c2d7a5bb04cd89de82fe7a76bab1'
 			}
 		}, function(err,response, body){
+			console.log(err);
 			console.log(response.statusCode);
 			console.log(body);
-	});
+		});
 }
+
 
 // List languages: returns object
 function listLang(callback){
@@ -80,11 +86,12 @@ function checkStatus(myid, callback){
 				callback(info);
 	});
 }
-var testCode = "#include <stdio.h> \n int main(){ printf(\"Hello!\"); return 0; }";
+testPro();
+// var testCode = "#include <stdio.h> \n int main(){ printf(\"Hello!\"); return 0; }";
 
-submitCode(44, testCode, "1", function(id){ // 44 is C++
-	checkStatus(45086761);
-});
+// submitCode(44, testCode, "1", function(id){ // 44 is C++
+// 	checkStatus(45086761);
+// });
 
 
 

@@ -11,10 +11,9 @@
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "hbs": "~3.1.0",
-    "mongoose": "^4.4.12",
-    "morgan": "~1.6.1",
-   "htmlparser2": "^3.9.0",
-   "mongoose": "^4.4.11",
+    "htmlparser2": "^3.9.0",
+    "mongoose": "^4.4.11",
+    "mongoose-url-slugs": "^0.2.1",
     "morgan": "~1.6.1",
     "request": "^2.69.0",
     "serve-favicon": "~2.3.0"

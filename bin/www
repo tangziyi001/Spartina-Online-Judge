@@ -5,11 +5,7 @@
  */
 
 var app = require('../app');
-<<<<<<< HEAD
 var debug = require('debug')('zt375-final:server');
-=======
-var debug = require('debug')('progteam:server');
->>>>>>> fb2ec6900ff26b7248eb2a7b878376b502d6b6e6
 var http = require('http');
 
 /**

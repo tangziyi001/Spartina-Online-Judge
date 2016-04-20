@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var URLSlugs = require('mongoose-url-slugs');
 
 // User
 // * our site requires authentication.
@@ -6,6 +7,7 @@ var mongoose = require('mongoose');
 // * they also have an identity.
 var User = new mongoose.Schema({
 	// username and password are provided by plugin
+	name: String,
 	identity: {type: String}
 });
 
@@ -15,12 +17,10 @@ var User = new mongoose.Schema({
 // * each problem has test input and test output
 // * each problem has hardness
 var Problem = new mongoose.Schema({
-	problem_id: Number,
-	title: String,
-	description: String,
-	testinput: String,
-	testOutput: String,
-	hardness: Number
+	problem_id: {type:String, require:true}, // Problem Code
+	title: {type:String, require:true},
+	author: {type:String, require:true},
+	hardness: {type:Number, require:true}
 });
 
 // Submission
@@ -28,11 +28,15 @@ var Problem = new mongoose.Schema({
 // * each submission has a feedback
 // * each submission has a submission time
 var Submission = new mongoose.Schema({
+	submission_id: Number, // Submission Number
 	problem: {type:mongoose.Schema.Types.ObjectId, ref:'Problem'},
-	feedback: String,
-	submission_time: String,
-	code: String
 });
 
+User.plugin(URLSlugs('name'));
+Problem.plugin(URLSlugs('problem_id'));
+Submission.plugin(URLSlugs('submission_id'));
+mongoose.model('User',User);
+mongoose.model('Problem',Problem);
+mongoose.model('Submission',Submission);
 
-
+mongoose.connect('mongodb://localhost/final');

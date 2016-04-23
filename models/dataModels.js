@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var URLSlugs = require('mongoose-url-slugs');
+var passportLocalMongoose = require('passport-local-mongoose');
 
 // User
 // * our site requires authentication.
@@ -8,8 +9,11 @@ var URLSlugs = require('mongoose-url-slugs');
 var User = new mongoose.Schema({
 	// username and password are provided by plugin
 	name: String,
-	identity: {type: String}
+	identity: {type: String},
+	username: String,
+	password: String
 });
+User.plugin(passportLocalMongoose);
 
 // Problem
 // * our site stores problems created by coach
@@ -32,7 +36,7 @@ var Submission = new mongoose.Schema({
 	problem: {type:mongoose.Schema.Types.ObjectId, ref:'Problem'},
 });
 
-User.plugin(URLSlugs('name'));
+User.plugin(URLSlugs('username'));
 Problem.plugin(URLSlugs('problem_id'));
 Submission.plugin(URLSlugs('submission_id'));
 mongoose.model('User',User);

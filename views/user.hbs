@@ -1,8 +1,10 @@
-<h1> Coach Page </h1>
+{{#if user}}
+<h1>Greetings {{user.name}}</h1>
+<a href="/users/logout">Logout</a>
 <div class='problem-panel'>
-	<h2> Problem List</h2>
+	<h2> My Problem List</h2>
 	<table>
-	{{#each problems}}
+	{{#each ../problems}}
 	<tr>
 	<td>{{problem_id}}</td>
 	<td>{{title}}</td>
@@ -27,3 +29,7 @@
 	<input type='submit' value='Submit'>
 </form>
 </div>
+
+{{else}}
+<h2>You must login to see your profile</h2>
+{{/if}}

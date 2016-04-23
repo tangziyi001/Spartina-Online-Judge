@@ -10,3 +10,12 @@ a {
 h1, h2{
 	text-align: center;
 }
+
+.login-form{
+	margin: auto;
+	width: 30%;
+	padding: 5px;
+	border: solid grey 3px;
+	position: relative;
+	text-align: center;
+}

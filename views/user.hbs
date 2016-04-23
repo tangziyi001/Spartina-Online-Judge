@@ -4,7 +4,7 @@
 <div class='problem-panel'>
 	<h2> My Problem List</h2>
 	<table>
-	{{#each ../problems}}
+	{{#each problems}}
 	<tr>
 	<td>{{problem_id}}</td>
 	<td>{{title}}</td>
@@ -14,8 +14,8 @@
 	</table>
 </div>
 <div class='problem-add'>
-<h2> Add Problems</h2>
-<form action='/users/coach' method='POST'>
+<h2>Add Problems</h2>
+<form action='' method='POST'>
 	<h3> Basic Info </h3>
 	<p>Problem ID</p><input name='problem_id' type='text'>
 	<p>Problem Title</p><input name='problem_title' type='text'>

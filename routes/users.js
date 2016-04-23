@@ -29,7 +29,7 @@ router.post('/', function(req,res,next){
 		if(err) console.log(err);
 		else
 			console.log(prob);
-		res.redirect('/');
+		res.redirect('/users');
 	});
 });
 

@@ -1,10 +1,16 @@
+<script src="/javascripts/addproblem.js"></script>
 {{#if user}}
-<h1>Greetings {{user.name}}</h1>
+{{#if message}}
+<div class='message'>
+<p2>{{message}}</p2>
+</div>
+{{/if}}
+<h1>Greetings {{user.username}}</h1>
 <a href="/users/logout">Logout</a>
-<div class='problem-panel'>
-	<h2> My Problem List</h2>
+<div class='problem_panel'>
+	<h2> Problems Solved by {{user.username}}</h2>
 	<table>
-	{{#each problems}}
+	{{#each user.problem_solved}}
 	<tr>
 	<td>{{problem_id}}</td>
 	<td>{{title}}</td>
@@ -13,23 +19,55 @@
 	{{/each}}
 	</table>
 </div>
-<div class='problem-add'>
-<h2>Add Problems</h2>
-<form action='' method='POST'>
-	<h3> Basic Info </h3>
-	<p>Problem ID</p><input name='problem_id' type='text'>
-	<p>Problem Title</p><input name='problem_title' type='text'>
-	<p>Problem Description</p><input name='problem_description' type='text'>
-	<p>Input Description</p><input name='input_description' type='text'>
-	<p>Output Description</p><input name='output_description' type='text'>
-	<p>Hardness (from 1-10)</p><input name='hardness' type='text'>
-	<h3> Sample Test Cases </h3>
-	<p>Input</p><input name='input_test' type='text'>
-	<p>Output</p><input name='input_test' type='text'>
-	<input type='submit' value='Submit'>
-</form>
+<div class='problem-panel'>
+	<h2> Problems Created by {{user.username}}</h2>
+	<table>
+	{{#each user.problem_created}}
+	<tr>
+	<td><a href='/problems/{{_id}}'>{{problem_id}}</a></td>
+	<td>{{title}}</td>
+	<td>{{hardness}}</td>
+	</tr>
+	{{/each}}
+	</table>
+</div>
+<button id='add' style="width:30%;height:30px;margin:auto;text-align:center;display:block">Show/hide problem editor</button>
+<div class='problem_add'>
+<form method='POST' action=''>
+<div class='basic'>
+	<h3> Basic Info</h3>
+	<label>Problem ID</label><input name='problem_id' id='problem_id' type='text'>
+	<label>Problem Title</label><input name='problem_title' id='problem_title' type='text'>
+	<p>Problem Description</p><textarea id='problem_description' name='problem_description' rows="30" cols="100"></textarea>
+	<p>Input Description</p><textarea id='input_description' rows="10" name='input_description' cols="100"></textarea>
+	<p>Output Description</p><textarea id='output_description' name='output_description' rows="10" cols="100"></textarea>
+	<p>Hardness (from 1-10)</p>
+	<select>
+  		<option value="1">1</option>
+  		<option value="2">2</option>
+  		<option value="3">3</option>
+  		<option value="4">4</option>
+  		<option value="5">5</option>
+  		<option value="6">6</option>
+  		<option value="7">7</option>
+  		<option value="8">8</option>
+  		<option value="9">9</option>
+  		<option value="10">10</option>
+	</select>
 </div>
 
+<div class='basic'>
+	<h3>Sample Test Cases </h3>
+	<table style='margin:0'>
+	<tr>
+	<td><p>Input</p><textarea id="sample_input" name="sample_input" rows="10" cols="75%"></textarea></td>
+	<td><p>Output</p><textarea id="sample_output" name='sample_output' rows="10" cols="75%"></textarea></td>
+	</tr>
+	</table>
+</div>
+<input id='submit_problem' type='submit' style="width:30%;height:30px;margin:auto;text-align:center;display:block value='Submit your problem">
+</form>
+</div>
 {{else}}
 <h2>You must login to see your profile</h2>
 {{/if}}

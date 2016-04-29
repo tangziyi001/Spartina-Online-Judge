@@ -86,12 +86,28 @@ function checkStatus(myid, callback){
 				callback(info);
 	});
 }
-testPro();
+
+// Create Problem
+function createProblem(id, name){
+	request.post({
+		url: 'https://72e460c4.problems.sphere-engine.com/api/v3/problems',
+		qs:{
+			access_token:'af547f9885290485d2e8a2dc579de3d0',
+		},
+		form:{
+			code: id,
+			name: name,
+		}
+	});
+}
+
 // var testCode = "#include <stdio.h> \n int main(){ printf(\"Hello!\"); return 0; }";
 
 // submitCode(44, testCode, "1", function(id){ // 44 is C++
 // 	checkStatus(45086761);
 // });
+module.exports.testPro = testPro;
+module.exports.createProblem = createProblem;
 
 
 

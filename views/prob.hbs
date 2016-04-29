@@ -1,0 +1,37 @@
+<h2 style='text-align: center'>{{prob.title}}</h2>
+<p style='text-align: center'>Promblem id: {{prob.problem_id}}</p>
+
+<div class='problem_description'>
+<h3 style='color:red'>Problem Description</h3>
+{{prob.problem_description}}
+<h3 style='color:red'>Input Description</h3>
+{{prob.input_description}}
+<h3 style='color:red'>Output Description</h3>
+{{prob.output_description}}
+
+
+<div class='sample'>
+<h3>Sample Input
+</h3>
+{{prob.sample_input}}
+</div>
+
+<div class='sample'>
+<h3>Sample Output
+</h3>
+{{prob.sample_output}}
+</div>
+</div>
+
+<div class='submission'>
+<h3> Submit Your Code Here</h3>
+{{#if user}}
+<p>Hi {{user.name}}, you can paste your code below</p>
+<form method='POST' action=''>
+<textarea name='submit_code' id='submit_code' rows='20' cols='100'></textarea>
+<br><input type='submit' name='submit'>
+</form>
+{{else}}
+You must login before submitting your code.
+{{/if}}
+</div>

@@ -10,12 +10,51 @@ a {
 h1, h2{
 	text-align: center;
 }
-
+.navigate{
+	text-align: center;
+	background-color: yellow;
+	color:black;
+}
+.big_title{
+	margin:0 5px;
+	text-align: center;
+	color:white;
+	border:3px solid grey;
+	background-color: black;
+}
 .login-form{
 	margin: auto;
 	width: 30%;
 	padding: 5px;
 	border: solid grey 3px;
 	position: relative;
+	text-align: center;
+}
+.problem_panel{
+	margin: auto;
+	text-align: center;
+}
+.problem_add{
+	display:none;
+	margin: auto;
+	text-align: center;
+}
+.basic{
+	text-align: center;
+	margin:auto 20px;
+	padding:30px;
+	border: solid grey 3px;
+}
+.problem_description{
+	position: relative;
+	text-align: left;
+}
+.sample{
+	text-align: left;
+	margin:auto 0px;
+	color:blue;
+}
+.submission{
+	margin:0;
 	text-align: center;
 }

@@ -27,7 +27,8 @@
 <h3> Submit Your Code Here</h3>
 {{#if user}}
 <p>Hi {{user.name}}, you can paste your code below</p>
-<form method='POST' action=''>
+<form method='POST' action='/problems/submit'>
+<input hidden='true' name='problem_id' value='{{prob.problem_id}}'>
 <textarea name='submit_code' id='submit_code' rows='20' cols='100'></textarea>
 <br><input type='submit' name='submit'>
 </form>

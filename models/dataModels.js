@@ -17,7 +17,7 @@ var Problem = new mongoose.Schema({
 	input_description: {type:String},
 	output_description: {type:String},
 	sample_input: {type:String},
-	sample_output: {type:String}
+	sample_output: {type:String},
 });
 
 

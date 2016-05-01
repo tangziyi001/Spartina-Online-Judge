@@ -25,7 +25,7 @@ router.post('/', function(req,res,next){
 		input_description: req.body.input_description,
 		output_description: req.body.output_description,
 		sample_input: req.body.sample_input,
-		sample_output: req.body.sample_output
+		sample_output: req.body.sample_output,
 	});
 	np.save(function(err){
 		if(err){
@@ -35,7 +35,9 @@ router.post('/', function(req,res,next){
 		else{
 			console.log(np);
 			// The problem is created via Sphere Engine
-
+			sp.createProblem(np.problem_id, np.title, function(back){
+				console.log("Message from Sphere Engine: "+back);
+			});
 			// The problem is added to the user's problem created list
 			User.update({slug:req.user.slug}, {$push:{'problem_created': np}},  {safe: true, upsert: true}, function(err, u){
 				res.redirect('/users');
@@ -61,7 +63,7 @@ router.post('/register', function(req, res) {
         passport.authenticate('local')(req, res, function () {
         	req.session.message=null;
             res.redirect('/users');
-        });
+        }); 
     });
 });
 

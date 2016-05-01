@@ -1,0 +1,26 @@
+<script type="text/javascript" src='/javascripts/addTestCase.js'></script>
+<h2>Edit Test Cases for {{problem_id}} - {{problem_title}}</h2>
+<table>
+<tr>
+<th>Test Case Number</th>
+<th>Input</th>
+<th>Output</th>
+</tr>
+{{#each test_cases}}
+<tr>
+<td>{{num}}</td>
+<td><a href='/problems/{{../problem_id}}/testCases/{{num}}/input'>Input</a></td>
+<td><a href='/problems/{{../problem_id}}/testCases/{{num}}/output'>Output</a></td>
+</tr>
+{{/each}}
+</table>
+<h3 style='text-align: center'>Add a Test Case For "{{problem_title}}"</h3>
+<div class='basic'>
+<form action='' method='POST'>
+	<input hidden='true' name='problem_id' value='{{problem_id}}'>
+	<textarea rows='20' cols='50' name="input" placeholder="Input"></textarea>
+	<textarea rows='20' cols='50' name="output" placeholder="Output"></textarea>
+	<br>
+	<input id='#submitTestCase' type='submit' value='Submit Test Case'></input>
+</form>
+</div>

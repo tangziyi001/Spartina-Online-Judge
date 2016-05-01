@@ -1,11 +1,12 @@
+// This is a library for calling sphere engine API
 var request = require('request');
-
+var my_access_token = '14e498d49275c2d7a5bb04cd89de82fe7a76bab1';
 function testCom(){
 		request({
 			url: 'https://api.compilers.sphere-engine.com/api/v3/test',
 			method: 'GET',
 			qs:{
-				access_token:'14e498d49275c2d7a5bb04cd89de82fe7a76bab1'
+				access_token:my_access_token
 			}
 		}, function(err,response, body){
 			console.log(response.statusCode);
@@ -21,7 +22,7 @@ function testPro(){
 				'Content-Type': 'application/json'
 			},
 			qs:{
-				access_token:'14e498d49275c2d7a5bb04cd89de82fe7a76bab1'
+				access_token:my_access_token
 			}
 		}, function(err,response, body){
 			console.log(err);
@@ -88,26 +89,101 @@ function checkStatus(myid, callback){
 }
 
 // Create Problem
-function createProblem(id, name){
+function createProblem(id, name, callback){
 	request.post({
+		rejectUnauthorized:false,
 		url: 'https://72e460c4.problems.sphere-engine.com/api/v3/problems',
 		qs:{
-			access_token:'af547f9885290485d2e8a2dc579de3d0',
+			access_token:my_access_token
 		},
 		form:{
 			code: id,
-			name: name,
+			name: name
+		}
+	}, function(err, response, body){
+		if(err) console.log('ERR CREATE PROBLEM');
+		else{
+			console.log(response.statusCode);
+			// Return the problem id
+			if(callback){
+				callback(body);
+			}
 		}
 	});
 }
-
+function createTestCases(id, input, output, callback){
+	request.post({
+		rejectUnauthorized:false,
+		url: 'https://72e460c4.problems.sphere-engine.com/api/v3/problems/'+id+'/testcases',
+		qs:{
+			access_token:my_access_token
+		},
+		form:{
+			input: input,
+			output: output
+		}
+	}, function(err, response, body){
+		if(err) console.log('ERR CREATE TESTCASE');
+		else{
+			console.log(response.statusCode);
+			// Return the test case number
+			if(callback){
+				callback(body);
+			}
+		}
+	});
+}
+function showTestCase(id, number, callback){
+	request.get({
+		rejectUnauthorized:false,
+		url: 'https://72e460c4.problems.sphere-engine.com/api/v3/problems/'+id+'/testcases/'+number,
+		qs:{
+			access_token:my_access_token
+		},
+	}, function(err, response, body){
+		if(err) console.log('ERR SHOW TESTCASE');
+		else{
+			console.log(body);
+			if(callback){
+				callback(body);
+			}
+		}
+	});
+}
+function showAllCases(id, callback){
+	request.get({
+		rejectUnauthorized:false,
+		url: 'https://72e460c4.problems.sphere-engine.com/api/v3/problems/'+id+'/testcases',
+		qs:{
+			access_token:my_access_token
+		},
+	}, function(err, response, body){
+		if(err) console.log('ERR SHOW ALL TESTCASES');
+		else{
+			console.log(body);
+			if(callback){
+				callback(body);
+			}
+		}
+	});
+}
 // var testCode = "#include <stdio.h> \n int main(){ printf(\"Hello!\"); return 0; }";
 
 // submitCode(44, testCode, "1", function(id){ // 44 is C++
 // 	checkStatus(45086761);
 // });
+// createProblem('AAAA','a+b');
+// createTestCases('SUPR', 'testinput 1','testoutput 1', function(body){
+
+// });
+// showTestCases('SUPR', 0, function(body){
+
+// });
 module.exports.testPro = testPro;
 module.exports.createProblem = createProblem;
-
+module.exports.createTestCases = createTestCases;
+module.exports.showAllCases = showAllCases;
+module.exports.showTestCase = showTestCase;
+module.exports.my_access_token = my_access_token;
 
 

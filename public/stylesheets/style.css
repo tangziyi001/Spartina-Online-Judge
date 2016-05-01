@@ -31,8 +31,14 @@ h1, h2{
 	text-align: center;
 }
 .problem_panel{
+	width:100%;
 	margin: auto;
 	text-align: center;
+}
+table, tr, th, td{
+	text-align: center;
+	margin:auto;
+	border:solid 1px black;
 }
 .problem_add{
 	display:none;

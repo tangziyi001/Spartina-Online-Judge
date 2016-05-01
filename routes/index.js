@@ -3,6 +3,9 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 var Problem = mongoose.model('Problem');
+var sp = require('../sphereEngine.js')
+
+
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
@@ -24,7 +27,78 @@ router.get('/problems/:id', function(req,res,next){
 		res.render('prob', {prob:prob, user:req.user});
 		console.log(prob);
 	});
-	
+});
+router.post('/problems/submit',function(req,res,next){
+	var problem_id = req.body.problem_id;
+	var code = req.body.submit_code;
+	console.log(problem_id);
+	console.log(code);
+});
+router.get('/problems/:id/testCases', function(req, res, next){
+	Problem.findOne({_id: req.params.id}, function(err, prob, next){
+		if(err) res.send('TEST CASES DISPLAY ERROR');
+		if(!req.user || req.user.username != prob.author)
+			res.send("Only problem creator can manage test cases for this problem. If you are the problem creator, please login.");
+		var num = prob.test_case_number;
+		console.log("Number of test cases is: "+num);
+		var context = {problem_id:prob.problem_id, problem_title: prob.title, test_cases:[]};
+			sp.showAllCases(prob.problem_id, function(body){
+				// Obj is a list of test cases for this problem
+				var cases = JSON.parse(body).testcases;
+				console.log("Total cases: "+cases.length);
+				console.log(cases);
+				// List all test cases
+				cases.forEach(function(item){
+					var ele = {
+					num: item.number,
+					input: item.input.url,
+					output: item.output.url,
+					};
+					context.test_cases.push(ele);
+				});
+				res.render('testCases', context);	
+			});
+	});	
+});
+
+// Create test case
+router.post('/problems/:id/testCases', function(req,res,next){
+	Problem.findOne({_id: req.params.id}, function(err,prob,next){
+		if(err) res.send('TEST CASES ADD ERROR');
+		else if(!req.user || req.user.username != prob.author)
+			res.send("Only problem creator can manage test cases for this problem. If you are the problem creator, please login.");
+		else if(!req.body.input || !req.body.output){
+			res.send("You cannot leave input/output blank");
+		}
+		else{
+			//req.session.testCaseMsg = null;
+			// Submit to the Sphere Engine
+			sp.createTestCases(req.body.problem_id, req.body.input, req.body.output, function(body){
+				console.log(body);
+				res.redirect('/problems/'+req.params.id+'/testCases');
+			});
+		}
+	});
+});
+
+// Open test case file
+router.get('/problems/:problem_id/testCases/:num/:io',function(req,res,next){
+	Problem.findOne({problem_id: req.params.problem_id}, function(err,prob,next){
+		if(err) res.send('TEST CASES ADD ERROR');
+		if(!req.user || req.user.username != prob.author)
+			res.send("Only problem creator can manage test cases for this problem. If you are the problem creator, please login.");
+		sp.showTestCase(req.params.problem_id, req.params.num, function(body){
+			var obj = JSON.parse(body);
+			if(req.params.io == 'input'){
+				res.redirect(obj.input.url+'?access_token='+sp.my_access_token);
+			}
+			else if(req.params.io == 'output'){
+				res.redirect(obj.output.url+'?access_token='+sp.my_access_token);
+			}
+			// else
+			// 	res.send('ERROR');
+		});
+	});
 });
 
 module.exports = router;

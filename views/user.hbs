@@ -6,7 +6,7 @@
 </div>
 {{/if}}
 <h1>Greetings {{user.username}}</h1>
-<a href="/users/logout">Logout</a>
+<h3 style='text-align:center'><a href="/users/logout">Logout</a></h3>
 <div class='problem_panel'>
 	<h2> Problems Solved by {{user.username}}</h2>
 	<table>
@@ -22,16 +22,23 @@
 <div class='problem-panel'>
 	<h2> Problems Created by {{user.username}}</h2>
 	<table>
+	<tr>
+	<th>Problem ID</th>
+	<th>Problem Title</th>
+	<th>Hardness</th>
+	<th>Test Cases</th>
+	</tr>
 	{{#each user.problem_created}}
 	<tr>
 	<td><a href='/problems/{{_id}}'>{{problem_id}}</a></td>
 	<td>{{title}}</td>
 	<td>{{hardness}}</td>
+	<td><a href='/problems/{{_id}}/testCases'>Manage Test Cases</a>
 	</tr>
 	{{/each}}
 	</table>
 </div>
-<button id='add' style="width:30%;height:30px;margin:auto;text-align:center;display:block">Show/hide problem editor</button>
+<button id='add' style="width:30%;height:30px;margin:auto;margin-top:30px;text-align:center;display:block">Add Problems</button>
 <div class='problem_add'>
 <form method='POST' action=''>
 <div class='basic'>
@@ -42,7 +49,7 @@
 	<p>Input Description</p><textarea id='input_description' rows="10" name='input_description' cols="100"></textarea>
 	<p>Output Description</p><textarea id='output_description' name='output_description' rows="10" cols="100"></textarea>
 	<p>Hardness (from 1-10)</p>
-	<select>
+	<select name='hardness'>
   		<option value="1">1</option>
   		<option value="2">2</option>
   		<option value="3">3</option>
@@ -58,6 +65,7 @@
 
 <div class='basic'>
 	<h3>Sample Test Cases </h3>
+	<p>Note: this test case is only used to help reader understand the problem. You need to add formal test cases by clicking "Manage Test Cases" after adding the problem.</p>
 	<table style='margin:0'>
 	<tr>
 	<td><p>Input</p><textarea id="sample_input" name="sample_input" rows="10" cols="75%"></textarea></td>

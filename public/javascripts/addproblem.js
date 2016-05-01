@@ -9,8 +9,6 @@ function main(){
 	var addFrame = document.querySelector(".problem_add");
 	if(button)
 		button.addEventListener('click', showAdd);
-	if(submit_problem)
-		submit_problem.addEventListener('click', submitProblem);
 	function showAdd(evt){
 		// console.log('display');
 		if(addFrame.style.display == 'block')
@@ -18,4 +16,8 @@ function main(){
 		else
 			addFrame.style.display = 'block';
 	}
+
+	// Manage Cases
+	var cases = document.querySelector('#manageCases');
+	cases.addEventListener('click', manageCases);
 }

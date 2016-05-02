@@ -1,10 +1,18 @@
 <h1>Problems</h1>
 
 <table>
+<tr>
+	<th>Problem ID</th>
+	<th>Problem Title</th>
+	<th>Problem Hardness</th>
+	<th>Problem Author</th>
+</tr>
 {{#each problems}}
 	<tr>
 	<td><a href="/problems/{{_id}}">{{problem_id}}</td>
-	<td>{{tile}}</td>
+	<td>{{title}}</td>
+	<td>{{hardness}}</td>
+	<td>{{author}}</td>
 	</tr>
 {{/each}}
 </table>

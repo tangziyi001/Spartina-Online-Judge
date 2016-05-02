@@ -32,7 +32,7 @@ var User = new mongoose.Schema({
 	// username: {type:String,required:true},
 	// password: {type:String,required:true},
 	problem_created: [Problem],//[{type:mongoose.Schema.Types.ObjectId, ref:'Problem'}],
-	problem_solved: [Problem]//[{type:mongoose.Schema.Types.ObjectId, ref:'Problem'}]
+	problem_solved: [Problem],//[{type:mongoose.Schema.Types.ObjectId, ref:'Problem'}]
 });
 User.plugin(passportLocalMongoose);
 
@@ -44,7 +44,8 @@ User.plugin(passportLocalMongoose);
 // * each submission has a submission time
 var Submission = new mongoose.Schema({
 	submission_id: Number, // Submission Number
-	problem: Problem//{type:mongoose.Schema.Types.ObjectId, ref:'Problem'},
+	problem: String,//{type:mongoose.Schema.Types.ObjectId, ref:'Problem'},
+	user: String
 });
 
 User.plugin(URLSlugs('username'));

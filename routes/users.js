@@ -34,14 +34,22 @@ router.post('/', function(req,res,next){
 		}
 		else{
 			console.log(np);
+			flag = 1;
 			// The problem is created via Sphere Engine
 			sp.createProblem(np.problem_id, np.title, function(back){
 				console.log("Message from Sphere Engine: "+back);
+				var obj = JSON.parse(back);
+				if(obj.message === 'Problem code already used'){
+					res.send('Problem ID has already existed');
+					flag = 0;
+				}
 			});
-			// The problem is added to the user's problem created list
-			User.update({slug:req.user.slug}, {$push:{'problem_created': np}},  {safe: true, upsert: true}, function(err, u){
-				res.redirect('/users');
-			});
+			if(flag){
+				// The problem is added to the user's problem created list
+				User.update({slug:req.user.slug}, {$push:{'problem_created': np}},  {safe: true, upsert: true}, function(err, u){
+					res.redirect('/users');
+				});
+			}
 		}
 	});
 });

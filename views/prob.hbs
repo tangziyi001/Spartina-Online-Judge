@@ -1,5 +1,6 @@
+<script type="text/javascript" src='/javascripts/submitCode.js'></script>
 <h2 style='text-align: center'>{{prob.title}}</h2>
-<p style='text-align: center'>Promblem id: {{prob.problem_id}}</p>
+<p style='text-align: center' id='problem_id'>{{prob.problem_id}}</p>
 
 <div class='problem_description'>
 <h3 style='color:red'>Problem Description</h3>
@@ -23,14 +24,26 @@
 </div>
 </div>
 
+<div class='result'>
+
+</div>
+
 <div class='submission'>
 <h3> Submit Your Code Here</h3>
 {{#if user}}
 <p>Hi {{user.name}}, you can paste your code below</p>
-<form method='POST' action='/problems/submit'>
+<form method='POST' action='/problems/submit' accept-charset="utf-8">
 <input hidden='true' name='problem_id' value='{{prob.problem_id}}'>
 <textarea name='submit_code' id='submit_code' rows='20' cols='100'></textarea>
-<br><input type='submit' name='submit'>
+<br>
+<p>
+Choose your language and submit!
+</p>
+<select class='language' name='language'>
+{{#each compilers}}
+  		<option value="{{@key}}">{{@this}}</option>
+ {{/each}}
+</select><input type='submit' name='submit' id='submit'>
 </form>
 {{else}}
 You must login before submitting your code.

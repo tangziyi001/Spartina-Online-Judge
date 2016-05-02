@@ -55,6 +55,10 @@ table, tr, th, td{
 	position: relative;
 	text-align: left;
 }
+.result{
+	text-align: center;
+	width:70%;
+}
 .sample{
 	text-align: left;
 	margin:auto 0px;
@@ -63,4 +67,14 @@ table, tr, th, td{
 .submission{
 	margin:0;
 	text-align: center;
+}
+.result{
+	margin:0 auto;
+}
+.notification{
+	background-color: blue;
+	color:white;
+	text-align: center;
+	margin:0 auto;
+	padding:10px;
 }

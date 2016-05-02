@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 var Problem = mongoose.model('Problem');
+var Submission = mongoose.model('Submission');
 var sp = require('../sphereEngine.js')
 
 
@@ -24,8 +25,11 @@ router.get('/problems', function(req, res, next){
 router.get('/problems/:id', function(req,res,next){
 	var theid = req.params.id;
 	Problem.findOne({_id: theid}, function(err, prob, next){
-		res.render('prob', {prob:prob, user:req.user});
-		console.log(prob);
+		sp.listLang(function(body){
+			var obj = JSON.parse(body);
+			res.render('prob', {prob:prob, user:req.user, compilers:obj});
+		});
+		
 	});
 });
 router.post('/problems/submit',function(req,res,next){
@@ -98,6 +102,66 @@ router.get('/problems/:problem_id/testCases/:num/:io',function(req,res,next){
 			// else
 			// 	res.send('ERROR');
 		});
+	});
+});
+
+// Submit Code Ajax
+router.post('/api/problems/submit',function(req, res, next){
+	console.log("Submission: "+req.body.problem_id);
+	console.log(req.body.code);
+	console.log(decodeURIComponent(req.body.language));
+	sp.submitSolution(req.body.problem_id, req.body.language, req.body.code, function(submission_id){
+		console.log("Submission Id is "+submission_id);
+			console.log('Submit Success');
+			// Return the submission id
+			var obj = JSON.parse(submission_id);
+			console.log(obj.submissionId);
+			res.json({submission_id: obj.submissionId});
+	});
+});
+
+// Submission Status Track
+router.get('/api/problems/track', function(req,res,next){
+	var submission_id = req.query.submission_id;
+	sp.submissionStatus(submission_id, function(body){
+		var obj = JSON.parse(body);
+		console.log("Submission Status from backend "+obj.result.status_code);
+		switch(obj.result.status_code){
+			case 1:
+				res.json({'result':'Compiling',message:'The program is being compiled', color:'blue'});
+				break;
+			case 3:
+				res.json({'result':'Running',message:'The program is running', color:'blue'});
+				break;
+			case 11:
+				res.json({'result': 'Compilation Error', 
+					message: 'The program could not be executed due to compilation error',
+					color:'purple'});
+				break;
+			case 12:
+				res.json({'result': 'Runtime Error', 
+					message: 'The program finished because of the runtime error, for example: division by zero, array index out of bounds, uncaught exception',
+					color:'red'});
+				break;
+			case 13:
+				res.json({'result': 'Time Limit Exceeded ', 
+					message: 'The program didn\'t stop before the time limit',
+					color:'brown'});
+				break;
+			case 14:
+				res.json({'result': 'Wrong Answer', 
+					message: 'Program did not solve the problem',
+					color:'red'});
+				break;
+			case 15:
+				res.json({'result': 'Accepted', 
+					message: 'Congratulations! You\'ve solved this problem',
+					color:'green'});
+				break;
+			default:
+				res.json({'result':'running', color:'blue'});
+		}
+
 	});
 });
 

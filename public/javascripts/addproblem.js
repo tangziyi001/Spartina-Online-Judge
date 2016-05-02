@@ -16,8 +16,4 @@ function main(){
 		else
 			addFrame.style.display = 'block';
 	}
-
-	// Manage Cases
-	var cases = document.querySelector('#manageCases');
-	cases.addEventListener('click', manageCases);
 }

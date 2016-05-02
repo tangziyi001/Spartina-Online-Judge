@@ -1,15 +1,16 @@
 <script src="/javascripts/addproblem.js"></script>
 {{#if user}}
-{{#if message}}
-<div class='message'>
-<p2>{{message}}</p2>
-</div>
-{{/if}}
 <h1>Greetings {{user.username}}</h1>
 <h3 style='text-align:center'><a href="/users/logout">Logout</a></h3>
 <div class='problem_panel'>
 	<h2> Problems Solved by {{user.username}}</h2>
+	<p>Total Solved: {{solved}}</p>
 	<table>
+	<tr>
+	<th>Problem ID</th>
+	<th>Problem Title</th>
+	<th>Hardness</th>
+	</tr>
 	{{#each user.problem_solved}}
 	<tr>
 	<td>{{problem_id}}</td>

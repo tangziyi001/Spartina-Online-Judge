@@ -108,6 +108,8 @@ function createProblem(id, name, callback){
 			if(response.statusCode >= 200 && response.statusCode < 400 && callback){
 				callback(body);
 			}
+			else if(response.statusCode == 400)
+				callback(400);
 		}
 	});
 }
@@ -198,7 +200,10 @@ function submissionStatus(submission_id, callback){
 			id: submission_id
 		}
 	}, function(err, response, body){
-		if(err) console.log('ERR SUBMISSION TRACK');
+		if(err){
+			console.log('ERR SUBMISSION TRACK');
+			console.log(err);
+		}
 		else{
 			// Return the status
 			if(response.statusCode >= 200 && response.statusCode < 400 && callback){

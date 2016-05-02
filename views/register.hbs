@@ -1,5 +1,8 @@
 <h1> Register </h1>
 <div class='login-form'>
+{{#if message}}
+<div style='color:red'><b>Registration Failed:</b> {{message}}</div>
+{{/if}}
 <form action='' method='POST'>
 <p>Username</p><input type='text' name='username' placeholder='Username'>
 <p>Password</p><input type='password' name='password' placeholder='Password'>

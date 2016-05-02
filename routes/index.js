@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 var Problem = mongoose.model('Problem');
+var User = mongoose.model('User');
 var Submission = mongoose.model('Submission');
 var sp = require('../sphereEngine.js')
 
@@ -154,9 +155,14 @@ router.get('/api/problems/track', function(req,res,next){
 					color:'red'});
 				break;
 			case 15:
-				res.json({'result': 'Accepted', 
-					message: 'Congratulations! You\'ve solved this problem',
-					color:'green'});
+				// Successful Submission: add to user's solved list
+				Problem.findOne({problem_id: obj.problem.code}, function(err,prob,next){
+					User.update({slug:req.user.slug}, {$push:{'problem_solved': prob}},  {safe: true, upsert: true}, function(err, u){
+						res.json({'result': 'Accepted', 
+						message: 'Congratulations! You\'ve solved this problem',
+						color:'green'});
+					});
+				});
 				break;
 			default:
 				res.json({'result':'running', color:'blue'});

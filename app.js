@@ -9,6 +9,7 @@ require('./models/dataModels');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var passport = require('passport');
+var flash = require('connect-flash');
 var localStrategy = require('passport-local').Strategy;
 var app = express();
 
@@ -24,8 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 app.use('/', routes);
 app.use('/users', users);

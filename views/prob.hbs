@@ -22,15 +22,12 @@
 </h3>
 {{prob.sample_output}}
 </div>
-</div>
-
-<div class='result'>
-
-</div>
 
 <div class='submission'>
 <h3> Submit Your Code Here</h3>
 {{#if user}}
+<div class='result'>
+</div>
 <p>Hi {{user.name}}, you can paste your code below</p>
 <form method='POST' action='/problems/submit' accept-charset="utf-8">
 <input hidden='true' name='problem_id' value='{{prob.problem_id}}'>
@@ -45,6 +42,7 @@ Choose your language and submit!
  {{/each}}
 </select><input type='submit' name='submit' id='submit'>
 </form>
+</div>
 {{else}}
 You must login before submitting your code.
 {{/if}}

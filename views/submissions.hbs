@@ -1,0 +1,27 @@
+<h1>Submissions</h1>
+<div style='text-align: center;margin:30px'>
+<h3>Filtered by problem ID</h3>
+<form action='' method='GET'>
+<input name='filter' type=text>
+<input type='submit' value='Submit'>
+</form>
+</div>
+<h3 style='text-align: center'>Submissions List</h3>
+<table>
+<tr>
+	<th>Submission ID</th>
+	<th>Problem ID</th>
+	<th>User</th>
+	<th>Result</th>
+</tr>
+{{#if submissions}}
+{{#each submissions}}
+<tr>
+	<td>{{submission_id}}</td>
+	<td>{{problem}}</td>
+	<td>{{user}}</td>
+	<td>{{result}}</td>
+</tr>
+{{/each}}
+{{/if}}
+</table>

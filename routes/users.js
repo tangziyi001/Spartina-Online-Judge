@@ -10,10 +10,9 @@ var User = mongoose.model('User');
 
 router.get('/', function(req, res, next){
 	var context = {user:req.user, message: req.session.message};
-	if(req.user.problem_solved)
+	if(req.user)
 		context.solved = req.user.problem_solved.length;
 	console.log("user page");
-	console.log(req.user);
 	if(req.user) req.session.message = null;
 	res.render('user', context);
 });

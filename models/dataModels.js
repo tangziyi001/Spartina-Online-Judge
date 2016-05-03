@@ -55,4 +55,6 @@ mongoose.model('User',User);
 mongoose.model('Problem',Problem);
 mongoose.model('Submission',Submission);
 
-mongoose.connect('mongodb://localhost/final');
+var c = require('../credential.js');
+mongoose.connect(c.mongo);
+

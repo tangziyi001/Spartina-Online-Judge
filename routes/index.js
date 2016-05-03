@@ -135,9 +135,11 @@ router.get('/api/problems/track', function(req,res,next){
 				res.json({'result':'Running',message:'The program is running', color:'blue'});
 				break;
 			case 11:
-				res.json({'result': 'Compilation Error', 
-					message: 'The program could not be executed due to compilation error',
-					color:'purple'});
+				storeSubmission(obj, function(){
+					res.json({'result': 'Compilation Error', 
+						message: 'The program could not be executed due to compilation error',
+						color:'purple'});
+				});
 				break;
 			case 12:
 				storeSubmission(obj, function(){
@@ -209,15 +211,25 @@ router.get('/api/problems/track', function(req,res,next){
 			re = 'Accepted';
 		new Submission({
 			submission_id: obj.id,
-			problem_id: obj.problem.code,
-			user: req.user.username
+			problem: obj.problem.code,
+			user: req.user.username,
+			result:re
 		}).save(function(err){
-			if(err) console.log("ERR SAVE SUBMISSION");
+			if(err) console.log("ERR SAVE SUBMISSION " + err);
 			else{
 				callback();
 			}
 		});
 	}
+});
+router.get('/submissions', function(req,res,next){
+	var selector = {};
+	console.log(req.query.filter);
+	if(req.query.filter)
+		selector.problem = req.query.filter;
+	Submission.find(selector, function(err, submissions, count){
+		res.render('submissions', {submissions: submissions});
+	});
 });
 
 module.exports = router;

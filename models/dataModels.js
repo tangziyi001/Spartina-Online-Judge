@@ -43,7 +43,7 @@ User.plugin(passportLocalMongoose);
 // * each submission has a feedback
 // * each submission has a submission time
 var Submission = new mongoose.Schema({
-	submission_id: Number, // Submission Number
+	submission_id: String, // Submission Number
 	problem: String,//{type:mongoose.Schema.Types.ObjectId, ref:'Problem'},
 	user: String,
 	result: String

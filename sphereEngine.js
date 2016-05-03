@@ -98,7 +98,8 @@ function createProblem(id, name, callback){
 		},
 		form:{
 			code: id,
-			name: name
+			name: name,
+			masterjudgeId: 1000
 		}
 	}, function(err, response, body){
 		if(err) console.log('ERR CREATE PROBLEM');

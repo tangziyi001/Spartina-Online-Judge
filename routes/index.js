@@ -140,35 +140,84 @@ router.get('/api/problems/track', function(req,res,next){
 					color:'purple'});
 				break;
 			case 12:
-				res.json({'result': 'Runtime Error', 
+				storeSubmission(obj, function(){
+					res.json({'result': 'Runtime Error', 
 					message: 'The program finished because of the runtime error, for example: division by zero, array index out of bounds, uncaught exception',
 					color:'red'});
+				});
 				break;
 			case 13:
-				res.json({'result': 'Time Limit Exceeded ', 
+				storeSubmission(obj, function(){
+					res.json({'result': 'Time Limit Exceeded ', 
 					message: 'The program didn\'t stop before the time limit',
 					color:'brown'});
+				});
 				break;
 			case 14:
-				res.json({'result': 'Wrong Answer', 
+				storeSubmission(obj, function(){
+					res.json({'result': 'Wrong Answer', 
 					message: 'Program did not solve the problem',
 					color:'red'});
+				});
 				break;
 			case 15:
-				// Successful Submission: add to user's solved list
-				Problem.findOne({problem_id: obj.problem.code}, function(err,prob,next){
-					User.update({slug:req.user.slug}, {$push:{'problem_solved': prob}},  {safe: true, upsert: true}, function(err, u){
-						res.json({'result': 'Accepted', 
-						message: 'Congratulations! You\'ve solved this problem',
-						color:'green'});
+				storeSubmission(obj, function(){
+					// Successful Submission: add to user's solved list
+					Problem.findOne({problem_id: obj.problem.code}, function(err,prob,next){
+						// Find repeated ones
+						var existed = 0;
+						for(var i = 0; i < req.user.problem_solved.length; i++){
+							var tmp = req.user.problem_solved[i];
+							if(req.user.problem_solved[i].problem_id == obj.problem.code){
+								existed = 1;
+								break;
+							}
+						}
+						if(existed){
+							res.json({'result': 'Accepted', 
+							message: 'Congratulations! You\'ve solved this problem',
+							color:'green'});
+						}
+						else{
+							User.update({slug:req.user.slug}, {$push:{'problem_solved': prob}},  {safe: true, upsert: true}, function(err, u){
+								res.json({'result': 'Accepted', 
+								message: 'Congratulations! You\'ve solved this problem',
+								color:'green'});
+							});
+						}
 					});
 				});
+				
 				break;
 			default:
 				res.json({'result':'running', color:'blue'});
 		}
 
 	});
+	// Store a submission
+	function storeSubmission(obj, callback){
+		var re;
+		if(obj.result.status_code == 11)
+			re = 'Compilation Error';
+		if(obj.result.status_code == 12)
+			re = 'Runtime Error';
+		if(obj.result.status_code == 13)
+			re = 'Time Limit Exceeded';
+		if(obj.result.status_code == 14)
+			re = 'Wrong Answer';
+		if(obj.result.status_code == 15)
+			re = 'Accepted';
+		new Submission({
+			submission_id: obj.id,
+			problem_id: obj.problem.code,
+			user: req.user.username
+		}).save(function(err){
+			if(err) console.log("ERR SAVE SUBMISSION");
+			else{
+				callback();
+			}
+		});
+	}
 });
 
 module.exports = router;

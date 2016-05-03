@@ -9,7 +9,7 @@ var User = mongoose.model('User');
 
 
 router.get('/', function(req, res, next){
-	var context = {user:req.user, message: req.session.message};
+	var context = {user:req.user, message: req.session.message, err_create_problem:req.session.err_create_problem};
 	if(req.user)
 		context.solved = req.user.problem_solved.length;
 	console.log("user page");
@@ -22,7 +22,8 @@ router.post('/', function(req,res,next){
 	sp.createProblem(req.body.problem_id, req.body.problem_title, function(back){
 		console.log("Message from Sphere Engine: "+back);
 		if(back == 400){
-			res.send('Problem ID has already existed');
+			req.session.err_create_problem = 'Problem ID has already existed';
+			res.redirect('/users');
 		}
 		else{
 			// Add problem to the database
@@ -39,13 +40,14 @@ router.post('/', function(req,res,next){
 			});
 			np.save(function(err){
 				if(err){
-					res.send(err);
+					res.send('<h2>'+err+'</h2>');
 					console.log(err);
 				}
 				else{
 					console.log(np);
 					// The problem is added to the user's problem created list
 					User.update({slug:req.user.slug}, {$push:{'problem_created': np}},  {safe: true, upsert: true}, function(err, u){
+						req.session.err_create_problem = nill;
 						res.redirect('/users');
 					});
 				}

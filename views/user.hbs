@@ -3,8 +3,8 @@
 <h1>Greetings {{user.username}}</h1>
 <h3 style='text-align:center'><a href="/users/logout">Logout</a></h3>
 <div class='problem_panel'>
-	<h2> Accepted submissions by {{user.username}}</h2>
-	<p>Total accepted submission: {{solved}}</p>
+	<h2> Problems solved by {{user.username}}</h2>
+	<p>Total problem solved: {{solved}}</p>
 	<table>
 	<tr>
 	<th>Problem ID</th>
@@ -40,9 +40,13 @@
 	</table>
 </div>
 <button id='add' style="width:30%;height:30px;margin:auto;margin-top:30px;text-align:center;display:block">Add Problems</button>
+{{#if err_create_problem}}
+<h3 style='color:red;text-align: center;'>{{err_create_problem}}</h3>
+{{/if}}
 <div class='problem_add'>
 <form method='POST' action=''>
 <div class='basic'>
+	
 	<h3> Basic Info</h3>
 	<label>Problem ID</label><input name='problem_id' id='problem_id' type='text'>
 	<label>Problem Title</label><input name='problem_title' id='problem_title' type='text'>

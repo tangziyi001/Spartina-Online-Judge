@@ -45,7 +45,8 @@ User.plugin(passportLocalMongoose);
 var Submission = new mongoose.Schema({
 	submission_id: Number, // Submission Number
 	problem: String,//{type:mongoose.Schema.Types.ObjectId, ref:'Problem'},
-	user: String
+	user: String,
+	result: String
 });
 
 User.plugin(URLSlugs('username'));
@@ -55,6 +56,7 @@ mongoose.model('User',User);
 mongoose.model('Problem',Problem);
 mongoose.model('Submission',Submission);
 
-var c = require('../credential.js');
-mongoose.connect(c.mongo);
+//var c = require('../credential.js');
+var l = 'mongodb://localhost/final';
+mongoose.connect(l);
 

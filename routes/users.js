@@ -47,7 +47,7 @@ router.post('/', function(req,res,next){
 					console.log(np);
 					// The problem is added to the user's problem created list
 					User.update({slug:req.user.slug}, {$push:{'problem_created': np}},  {safe: true, upsert: true}, function(err, u){
-						req.session.err_create_problem = nill;
+						req.session.err_create_problem = null;
 						res.redirect('/users');
 					});
 				}

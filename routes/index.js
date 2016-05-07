@@ -11,6 +11,7 @@ var sp = require('../sphereEngine.js')
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
+	
 	res.render('index');
 });
 router.get('/problems', function(req, res, next){

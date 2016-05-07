@@ -1,18 +1,24 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request');
 var mongoose = require('mongoose');
-
+var md = require('markdown').markdown;
 var Problem = mongoose.model('Problem');
 var User = mongoose.model('User');
 var Submission = mongoose.model('Submission');
-var sp = require('../sphereEngine.js')
-
-
+var sp = require('../sphereEngine.js');
+var fs = require('fs');
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
-	
-	res.render('index');
+	fs.readFile('./public/instruction.md', 'utf-8',function(err, data) {
+	    if (err) {
+	        throw err;
+	    }
+	    console.log(data);
+    	res.render('index', {text: md.toHTML(data)});
+	});
+
 });
 router.get('/problems', function(req, res, next){
 	var context = {problems: []};

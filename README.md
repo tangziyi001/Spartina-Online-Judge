@@ -81,5 +81,21 @@ var Submission = new mongoose.Schema({
 * Integrate user authentication
     * I used passport for user authentication
 * Use npm package [connect-flash](https://www.npmjs.com/package/connect-flash),
-which we didn't cover in class. 
+[markdown](https://github.com/evilstreak/markdown-js) which we didn't cover in class. 
 * Integrate code submission API from [Sphere Engine](http://sphere-engine.com/). Users can access problem page to submit their code as plain text. The plain text is encoded and sent to the backend. The server decodes the code and sends it to the Sphere Compiler and retrieves feedbacks.
+
+
+## Instructions for users
+
+### How to browse problems?
+Just click on "Problem" tab within the navigation bar. Then you can see a list of all problems. You can click on the ID of the problem to access a specific problem.
+
+### How to submit your solution?
+You are required to login in order to submit your code. After login, you can go to a specific problem page (as stated above) and input (or paste) your code into the textarea. After submitting your code, a notification will appear, showing you the judging process. Your submission result will be stored into the database. And you can checkout all submission results by clicking "Submissions" within the navigation bar.
+
+### How to add a problem?
+To add a problem, click "My Profile" tab and click "Add Problem" button. You will be required to fill in problem info such as problem ID, title, description, hardness, etc. **The problem ID must be unique**. Conventionally, the problem ID is a combination of capital letters. After adding the problem, **you have to add test cases as following**.
+
+### How to add test cases?
+If you have added a problem, you can add test cases for it by clicking "Manage Test Cases" in "My Profile" page. **The test cases cannot be deleted**.
+

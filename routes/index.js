@@ -235,7 +235,9 @@ router.get('/submissions', function(req,res,next){
 	if(req.query.filter)
 		selector.problem = req.query.filter;
 	Submission.find(selector, function(err, submissions, count){
-		res.render('submissions', {submissions: submissions});
+		var rev = submissions;
+		rev.reverse();
+		res.render('submissions', {submissions: rev});
 	});
 });
 

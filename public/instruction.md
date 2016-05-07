@@ -12,8 +12,8 @@ Just click on "Problem" tab within the navigation bar. Then you can see a list o
 ## How to submit your solution?
 You are required to login in order to submit your code. After login, you can go to a specific problem page (as stated above) and input (or paste) your code into the textarea. After submitting your code, a notification will appear, showing you the judging process. Your submission result will be stored into the database. And you can checkout all submission results by clicking "Submissions" within the navigation bar.
 
-## What the code should be like
-Your code must explicitly include all libraries you need. And it must have a main function. For example, you must have ``int main(){}`` in C++ and ``public static void main(String args[])`` in Java. For all problems, you need to use standard input and output to read test data and output your results.
+## What the code should be like?
+Your code must **explicitly** include all libraries you need. And **it must have a main function**. For example, you must have ``int main(){}`` in C++ and ``public static void main(String args[])`` in Java. For all problems, you need to use standard input and output to read test data and output your results.
 
 ## How to add a problem?
 To add a problem, click "My Profile" tab and click "Add Problem" button. You will be required to fill in problem info such as problem ID, title, description, hardness, etc. **The problem ID must be unique**. Conventionally, the problem ID is a combination of capital letters. After adding the problem, **you have to add test cases as following**.

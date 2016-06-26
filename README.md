@@ -2,7 +2,7 @@
 # Spartina Online Judge
 
 ## Overview
-This website is a coding practice platform for algorithm and programming enthusiasts. After registering an account and login, each user can do the following thing: 
+As a final project for Applied Intenet Technology class, this web application is a coding practice platform for algorithm and programming enthusiasts. After registering an account and login, each user can do the following thing: 
 
 * Create programming problems and upload input/output test cases. 
 * Browse all problems and submit own solution code. The code will be executed and a feedback will be displayed to the user in a second. There will also be a submission page that displays all submissions made by all users.

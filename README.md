@@ -1,6 +1,6 @@
 
 # Spartina Online Judge
-The application is deployed [here](35.163.99.152:3000)
+The application is deployed [here](http://35.163.99.152:3000/)
 
 ## Overview
 As a final project for Applied Intenet Technology class, this web application is a coding practice platform for algorithm and programming enthusiasts. After registering an account and login, each user can do the following thing: 
